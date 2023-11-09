@@ -105,6 +105,33 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        if (0 === strpos($pathinfo, '/user')) {
+            // user_homepage
+            if ('/user' === rtrim($pathinfo, '/')) {
+                if ('/' === substr($pathinfo, -1)) {
+                    // no-op
+                } elseif (!in_array($this->context->getMethod(), array('HEAD', 'GET'))) {
+                    goto not_user_homepage;
+                } else {
+                    return $this->redirect($rawPathinfo.'/', 'user_homepage');
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\DefaultController::indexAction',  '_route' => 'user_homepage',);
+            }
+            not_user_homepage:
+
+            // user_index
+            if ('/user/index' === $pathinfo) {
+                return array (  '_controller' => 'UserBundle\\Controller\\UserController::indexAction',  '_route' => 'user_index',);
+            }
+
+            // user_articles
+            if (0 === strpos($pathinfo, '/user/articles') && preg_match('#^/user/articles(?:/(?P<page>\\d+))?$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_articles')), array (  '_controller' => 'UserBundle\\Controller\\UserController::articlesAction',  'page' => 1,));
+            }
+
+        }
+
         // homepage
         if ('' === rtrim($pathinfo, '/')) {
             if ('/' === substr($pathinfo, -1)) {

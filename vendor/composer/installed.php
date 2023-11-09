@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'v2.8.48',
-        'version' => '2.8.48.0',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'c8e749153fbc085cc952f48b27437fd16d930a5a',
         'name' => 'symfony/framework-standard-edition',
         'dev' => true,
     ),
@@ -317,12 +317,12 @@
             ),
         ),
         'symfony/framework-standard-edition' => array(
-            'pretty_version' => 'v2.8.48',
-            'version' => '2.8.48.0',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'c8e749153fbc085cc952f48b27437fd16d930a5a',
             'dev_requirement' => false,
         ),
         'symfony/http-foundation' => array(
