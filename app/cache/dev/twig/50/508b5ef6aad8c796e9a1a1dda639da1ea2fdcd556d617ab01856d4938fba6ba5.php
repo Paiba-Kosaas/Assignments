@@ -30,17 +30,29 @@ class __TwigTemplate_a17186160c7e2a033b9c5bb2047dbc45cb03928134e75b6383aa8e15bc4
             <span class=\"icon-bar\"></span>
             <span class=\"icon-bar\"></span>
             </button>
-            <a class=\"navbar-brand\" href=\"#\">Assignments</a>
+            <a class=\"navbar-brand\" href=\"#\">";
+        // line 12
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->getTranslator()->trans("Assignments", array(), "messages");
+        echo "</a>
         </div>
         
         <!-- Collect the nav links, forms -->
         <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">
             <ul class=\"nav navbar-nav\">
                 <li class=\"dropdown\">
-                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"> Users  <span class=\"caret\"></span></a>
+                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">";
+        // line 19
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->getTranslator()->trans("Users", array(), "messages");
+        echo "<span class=\"caret\"></span></a>
                     <ul class=\"dropdown-menu\">
-                        <li><a href=\"#\"> List users </a></li>
-                        <li><a href=\"#\"> New user </a></li>
+                        <li><a href=\"index\">";
+        // line 21
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->getTranslator()->trans("List users", array(), "messages");
+        echo "</a></li>
+                        <li><a href=\"add\">";
+        // line 22
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\TranslationExtension')->getTranslator()->trans("New user", array(), "messages");
+        echo "</a></li>
                     </ul>
                 </li>
             </ul>
@@ -58,9 +70,14 @@ class __TwigTemplate_a17186160c7e2a033b9c5bb2047dbc45cb03928134e75b6383aa8e15bc4
         return "menu.html.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  22 => 1,);
+        return array (  54 => 22,  50 => 21,  45 => 19,  35 => 12,  22 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -84,17 +101,17 @@ class __TwigTemplate_a17186160c7e2a033b9c5bb2047dbc45cb03928134e75b6383aa8e15bc4
             <span class=\"icon-bar\"></span>
             <span class=\"icon-bar\"></span>
             </button>
-            <a class=\"navbar-brand\" href=\"#\">Assignments</a>
+            <a class=\"navbar-brand\" href=\"#\">{% trans %}Assignments{% endtrans %}</a>
         </div>
         
         <!-- Collect the nav links, forms -->
         <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">
             <ul class=\"nav navbar-nav\">
                 <li class=\"dropdown\">
-                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"> Users  <span class=\"caret\"></span></a>
+                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">{% trans %} Users {% endtrans %}<span class=\"caret\"></span></a>
                     <ul class=\"dropdown-menu\">
-                        <li><a href=\"#\"> List users </a></li>
-                        <li><a href=\"#\"> New user </a></li>
+                        <li><a href=\"index\">{% trans %} List users {% endtrans %}</a></li>
+                        <li><a href=\"add\">{% trans %} New user {% endtrans %}</a></li>
                     </ul>
                 </li>
             </ul>

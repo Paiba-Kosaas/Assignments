@@ -130,6 +130,17 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return array (  '_controller' => 'UserBundle\\Controller\\UserController::addAction',  '_route' => 'user_add',);
             }
 
+            // user_create
+            if ('/user/create' === $pathinfo) {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_user_create;
+                }
+
+                return array (  '_controller' => 'UserBundle\\Controller\\UserController::createAction',  '_route' => 'user_create',);
+            }
+            not_user_create:
+
             // user_edit
             if (0 === strpos($pathinfo, '/user/edit') && preg_match('#^/user/edit/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_edit')), array (  '_controller' => 'UserBundle\\Controller\\UserController::editAction',));
@@ -143,6 +154,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             // user_delete
             if (0 === strpos($pathinfo, '/user/delete') && preg_match('#^/user/delete/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_delete')), array (  '_controller' => 'UserBundle\\Controller\\UserController::deleteAction',));
+            }
+
+            // user_redirect_add
+            if ('/user/create' === $pathinfo) {
+                return array (  '_controller' => 'UserBundle\\Controller\\UserController::addAction',  'path' => '/add',  'permanent' => true,  '_route' => 'user_redirect_add',);
             }
 
         }
