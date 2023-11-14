@@ -285,7 +285,11 @@
             <trans-unit id="71">
                 <source>The task has already been processed.</source>
                 <target>La tarea ya ha sido procesada.</target>
-            </trans-unit>            
+            </trans-unit>     
+            <trans-unit id="72">
+                <source>The task has already been processed.</source>
+                <target>La tarea ya ha sido procesada.</target>
+            </trans-unit>          
         </body>
     </file>
 </xliff>

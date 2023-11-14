@@ -31,7 +31,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=50, unique=true)
-     * @Assert\NotBlank(message="user.username.not_blank")
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -64,7 +64,6 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotBlank()
      */
     private $password;
 
