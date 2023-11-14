@@ -285,11 +285,7 @@
             <trans-unit id="71">
                 <source>The task has already been processed.</source>
                 <target>La tarea ya ha sido procesada.</target>
-            </trans-unit>      
-            <trans-unit id="72">
-                <source>user.username.not_blank</source>
-                <target>Ingrese su nombre de usuario</target>
-            </trans-unit>      
+            </trans-unit>            
         </body>
     </file>
 </xliff>
