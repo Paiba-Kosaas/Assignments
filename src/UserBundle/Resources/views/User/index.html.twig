@@ -41,9 +41,9 @@
                                 <td>{{ user.createdAt|date('d-m-Y H:i') }}</td>
                                 <td>{{ user.updatedAt|date('d-m-Y H:i') }}</td>
                                 <td class="actions">
-                                    <a href="#" class="btn btn-sm btn-info">{% trans %}View{% endtrans %}</a>
+                                    <a href="{{ path('user_view',{ id:user.id }) }}" class="btn btn-sm btn-info">{% trans %}View{% endtrans %}</a>
                                     <a href="{{ path('user_edit',{ id:user.id }) }}" class="btn btn-sm btn-primary">{% trans %}Edit{% endtrans %}</a>
-                                    <a href="#" class="btn btn-sm btn-danger btn-delete">{% trans %}Delete{% endtrans %}</a>
+                                    <a class="btn btn-sm btn-danger btn-delete" onclick="deleteAction({ id:user.id })">{% trans %}Delete{% endtrans %}</a>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -175,6 +175,49 @@ class UserController extends Controller
 
         $user = $repository->find($id);
 
-        return new Response('Usuario: ' . $user->getUsername() . ' con email: ' . $user->getEmail());
+        if(!$user)
+        {
+            $messageException = $this->get('translator')->trans('User not found.');
+            throw $this->createNotFoundException($messageException);
+        }
+
+        $deleteForm = $this->createDeleteForm($user);
+
+        return $this->render('UserBundle:User:view.html.twig', array('user' => $user, 'delete_form' => $deleteForm->createView()));
+    }
+
+    private function createDeleteForm($user)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
+    }
+
+    public function deleteAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('UserBundle:User')->find($id);
+
+        if(!$user)
+        {
+            $messageException = $this->get('translator')->trans('User not found.');
+            throw $this->createNotFoundException($messageException);
+        }
+
+        $form = $this->createDeleteForm($user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em->remove($user);
+            $em->flush();
+
+            $successMessage = $this->get('translator')->trans('The user has been deleted.');
+            $this->addFlash('mensaje', $successMessage);
+            return $this->redirectToRoute('user_index');
+        }
+
     }
 }
