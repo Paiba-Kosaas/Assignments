@@ -12,7 +12,9 @@
     </head>
     <body>
         {% block body %}
-            {{ include('menu.html.twig') }}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {{ include('menu.html.twig') }}
+            {% endif %}
         {% endblock %}
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="crossorigin="anonymous"></script>

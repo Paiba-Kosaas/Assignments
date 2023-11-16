@@ -26,6 +26,50 @@ class TaskController extends Controller
         return $this->render('UserBundle:Task:index.html.twig', array('pagination' => $pagination));
     }
 
+    public function customAction(Request $request)
+    {
+        $idUser = $this->get('security.token_storage')->getToken()->getUser()->getId();
+
+        $em = $this->getDoctrine()->getManager();
+        $dql = 'SELECT t FROM UserBundle:Task t JOIN t.user u WHERE u.id = :idUser ORDER BY t.id DESC';
+
+        $tasks = $em->createQuery($dql)->setParameter('idUser', $idUser);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $tasks,
+            $request->query->getInt('page',1),
+            3
+        );
+
+        $updateForm = $this->createCustomForm(':TASK_ID', 'PUT', 'task_process');
+
+        return $this->render('UserBundle:Task:custom.html.twig', array('pagination' => $pagination, 'update_form' => $updateForm->createView()));
+    }
+
+    public function process($id, Request $request){
+        $em = $this->getDoctrine()->getManager();
+
+        $task = $em->getRepository('UserBundle:Task')->find($id);
+
+        if(!$task)
+        {
+            throw $this->createNotFoundException('The task does not exist.');
+        }
+
+        $form = $this->createCustomForm($task->getId(), 'PUT', 'task_process');
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $task->setStatus(1);
+            $em->flush();
+            $successMessage = $this->get('translator')->trans('The task has been modified.');
+            $this->addFlash('mensaje', $successMessage);            
+            return $this->redirectToRoute('task_index');
+        }
+    }
+
     public function addAction()
     {
         $task = new Task();

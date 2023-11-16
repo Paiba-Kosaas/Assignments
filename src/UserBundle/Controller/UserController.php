@@ -13,6 +13,11 @@ use UserBundle\Form\UserType;
 
 class UserController extends Controller
 {
+    public function homeAction()
+    {
+     return $this->render('UserBundle:User:home.html.twig');   
+    }
+
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
