@@ -7,13 +7,20 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Task
  *
- * @ORM\Table(name="task")
+ * @ORM\Table(name="tasks")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\TaskRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Task
 {
     /**
-     * @var int
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tasks")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     */ 
+    protected $user;
+    
+    /**
+     * @var integer
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -31,12 +38,12 @@ class Task
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
 
     /**
-     * @var bool
+     * @var boolean
      *
      * @ORM\Column(name="status", type="boolean")
      */
@@ -60,7 +67,7 @@ class Task
     /**
      * Get id
      *
-     * @return int
+     * @return integer 
      */
     public function getId()
     {
@@ -71,7 +78,6 @@ class Task
      * Set title
      *
      * @param string $title
-     *
      * @return Task
      */
     public function setTitle($title)
@@ -84,7 +90,7 @@ class Task
     /**
      * Get title
      *
-     * @return string
+     * @return string 
      */
     public function getTitle()
     {
@@ -95,7 +101,6 @@ class Task
      * Set description
      *
      * @param string $description
-     *
      * @return Task
      */
     public function setDescription($description)
@@ -108,7 +113,7 @@ class Task
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -119,7 +124,6 @@ class Task
      * Set status
      *
      * @param boolean $status
-     *
      * @return Task
      */
     public function setStatus($status)
@@ -132,7 +136,7 @@ class Task
     /**
      * Get status
      *
-     * @return bool
+     * @return boolean 
      */
     public function getStatus()
     {
@@ -143,7 +147,6 @@ class Task
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     *
      * @return Task
      */
     public function setCreatedAt($createdAt)
@@ -156,7 +159,7 @@ class Task
     /**
      * Get createdAt
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreatedAt()
     {
@@ -167,7 +170,6 @@ class Task
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     *
      * @return Task
      */
     public function setUpdatedAt($updatedAt)
@@ -180,10 +182,50 @@ class Task
     /**
      * Get updatedAt
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     * @return Task
+     */
+    public function setUser(\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
