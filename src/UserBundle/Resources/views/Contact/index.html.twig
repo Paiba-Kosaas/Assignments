@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    {{parent()}}
+    <div class="main container">
+        <div class="row well">
+            <div class="col-md-6">
+
+                <div class="page-header">
+                    <h2>{% trans %}Write your query{% endtrans %}</h2>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="control-label">{{ ("Your first name")|trans }}</label>
+                    <div class="form-group" style="display: flex;">
+                        <input id="transportPaymentFrequency" name="firstName" class="form-control optionalField naturalNumber" value="" placeholder='Your email'>
+                    <div style="display: flex; align-items: center; margin-left: 5px;"></div>
+                </div>
+
+
+
+                <div class='form-group'>
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email, { 'attr' : {'class' : 'form-control', 'placeholder' : 'Your email'} }) }}
+                    <span class="text-danger">{{ form_errors(form.email) }}</span>
+                </div>
+
+                <div class='form-group'>
+                    {{ form_label(form.phone) }}
+                    {{ form_widget(form.phone, { 'attr' : {'class' : 'form-control', 'placeholder' : 'Your phone number'} }) }}
+                    <span class="text-danger">{{ form_errors(form.phone) }}</span>
+                </div>    
+
+                <div class="form-group">
+                    {{ form_label(form.affair) }}
+                    {{ form_widget(form.affair, {'attr': {'class': 'form-control', 'placeholder' : 'Affair of message'}}) }}
+                    <span class="text-danger">{{ form_errors(form.affair) }}</span>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder' : 'Description'}}) }}
+                    <span class="text-danger">{{ form_errors(form.description) }}</span>
+                </div>
+            </fieldset>
+
+            <p>
+                {{ form_widget(form.save, {'label' : 'Send', 'attr': {'class': 'btn btn-success'}}) }}
+            </p>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

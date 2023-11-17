@@ -1,0 +1,11 @@
+contact_index:
+    path:     /index
+    defaults: { _controller: UserBundle:Contact:index }
+
+contact_add:
+    path:     /add
+    defaults: { _controller: UserBundle:Contact:add }
+
+contact_create:
+    path:     /create
+    defaults: { _controller: UserBundle:Contact:create }    

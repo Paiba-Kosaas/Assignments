@@ -47,7 +47,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=100, unique=true)
+     * @ORM\Column(name="first_name", type="string", length=100)
      * @Assert\NotBlank()
      */
     private $firstName;
@@ -55,7 +55,7 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=100, unique=true)
+     * @ORM\Column(name="last_name", type="string", length=100)
      * @Assert\NotBlank()
      */
     private $lastName;

@@ -289,7 +289,48 @@
             <trans-unit id="72">
                 <source>The task has already been processed.</source>
                 <target>La tarea ya ha sido procesada.</target>
-            </trans-unit>          
+            </trans-unit> 
+            <trans-unit id="73">
+                <source>Contact</source>
+                <target>Contacto</target>
+            </trans-unit>
+            <trans-unit id="74">
+                <source>Your phone number</source>
+                <target>ingrese su numero de contacto</target>
+            </trans-unit>
+            <trans-unit id="75">
+                <source>Affair of message</source>
+                <target>Asunto del mensaje</target>
+            </trans-unit>  
+            <trans-unit id="76">
+                <source>Send</source>
+                <target>Enviar</target>
+            </trans-unit>    
+            <trans-unit id="77">
+                <source>Write your query</source>
+                <target>Escribe tu consulta</target>
+            </trans-unit>
+            <trans-unit id="78">
+                <source>Affair</source>
+                <target>Asunto</target>
+            </trans-unit>
+            <trans-unit id="79">
+                <source>phone</source>
+                <target>Teléfono</target>
+            </trans-unit>
+            <trans-unit id="80">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="81">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="">
+                <source></source>
+                <target></target>
+            </trans-unit>
+                
         </body>
     </file>
 </xliff>
