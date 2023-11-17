@@ -34,7 +34,7 @@ $(document).ready(function(){
 
                         if($.isNumeric(totalUsers))
                         {
-                            $('#total').text(totalUsers-1);
+                            $('#total').text(totalUsers -1 );
                         }
                         else
                         {
@@ -52,7 +52,6 @@ $(document).ready(function(){
                     row.show();
                     }); 
             }
-        })
+        });
     });
-
-})
+});

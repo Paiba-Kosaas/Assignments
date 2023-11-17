@@ -47,7 +47,8 @@ class TaskController extends Controller
         return $this->render('UserBundle:Task:custom.html.twig', array('pagination' => $pagination, 'update_form' => $updateForm->createView()));
     }
 
-    public function process($id, Request $request){
+    public function processAction($id, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $task = $em->getRepository('UserBundle:Task')->find($id);
@@ -62,11 +63,34 @@ class TaskController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $task->setStatus(1);
-            $em->flush();
-            $successMessage = $this->get('translator')->trans('The task has been modified.');
-            $this->addFlash('mensaje', $successMessage);            
-            return $this->redirectToRoute('task_index');
+            $successMessage = $this->get('translator')->trans('The task has been processed.');
+            $warningMessage = $this->get('translator')->trans('The task has already been processed.');
+
+            if($task->getStatus() == 0)
+            {
+                $task->setStatus(1);
+                $em->flush();
+
+                if($request->isXMLHttpRequest())
+                {
+                    return new Response(
+                        json_encode(array('processed' => 1, 'success' => $successMessage)),
+                        200,
+                        array('Content-Type' => 'application/json')
+                    );
+                }
+            }
+            else
+            {
+                if($request->isXMLHttpRequest())
+                {
+                    return new Response(
+                        json_encode(array('processed' => 0, 'warning' => $warningMessage)),
+                        200,
+                        array('Content-Type' => 'application/json')
+                    );
+                }
+            }
         }
     }
 
