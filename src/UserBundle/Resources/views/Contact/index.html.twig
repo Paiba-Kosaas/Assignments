@@ -1,5 +1,19 @@
 {% extends 'layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     {{parent()}}
     <div class="main container">
@@ -11,45 +25,92 @@
                 </div>
 
                 <div class="col-md-12">
-                    <label class="control-label">{{ ("Your first name")|trans }}</label>
-                    <div class="form-group" style="display: flex;">
-                        <input id="transportPaymentFrequency" name="firstName" class="form-control optionalField naturalNumber" value="" placeholder='Your email'>
-                    <div style="display: flex; align-items: center; margin-left: 5px;"></div>
+                    <div class="form-group">
+                        <label class="control-label">{{ ("Your first name")|trans }}</label>
+                        <input id="firstName" name="firstName" class="form-contact required-field form-control" placeholder='{{ ("Your first name")|trans }}'>
+                        <small hidden class="help-block validator"></small>
+                    </div>
+                    <div style="margin-left: 5px; margin-bottom: 30px;"></div>
+
+                    <div class="form-group">
+                        <label class="control-label">{{ ("Your last name")|trans }}</label>
+                        <input id="lastName" name="lastName" class="form-contact required-field form-control" placeholder='{{ ("Your last name")|trans }}'>
+                        <small hidden class="help-block validator"></small>
+                    </div>
+                    <div style="margin-left: 5px; margin-bottom: 30px;"></div>
+
+                    <div class="form-group">
+                        <label class="control-label">{{ ("Your email")|trans }}</label>
+                        <input id="email" inputmode="email" name="email" class="form-contact required-field form-control" placeholder='{{ ("Your email")|trans }}'>
+                        <small hidden class="help-block validator"></small>
+                    </div>
+                    <div style="margin-left: 5px; margin-bottom: 30px;"></div>
+
+                    <div class="form-group">
+                        <label class="control-label">{{ ("Your phone number")|trans }}</label>
+                        <div class="form-inline">
+                            <select name="country" id="country" class = "form-contact btn btn-default dropdown-toggle">
+                                <option value="34">Es(+34)</option>
+                                <option value="34">En(+34)</option>
+                                <option value="34">Fr(+34)</option>
+                                <option value="34">Al(+34)</option>
+                            </select>
+                            <input id="phone" type="number" inputmode="numeric" min="0" max="999999999" style="width:80%;"
+                            onwheel="return false;" name="phone" class="form-contact form-control" placeholder='{{ ("Your phone number")|trans }}'>
+                            <small hidden class="help-block validator"></small>
+                        </div>
+                    </div>
+                    <div style="margin-left: 5px; margin-bottom: 30px;"></div>
+                    
+                    <div class="form-group">
+                        <label class="control-label">{{ ("Affair")|trans }}</label>
+                        <input id="affair" name="affair" class="form-contact required-field form-control" placeholder='{{ ("Affair of query")|trans }}'>
+                        <small hidden class="help-block validator"></small>
+                    </div>
+                    <div style="margin-left: 5px; margin-bottom: 30px;"></div>
+                
+                    <div class="form-group">
+                        <label class="control-label">{{ ("Description")|trans }}</label>
+                        <input id="description" name="description" class="form-contact required-field form-control" placeholder='{{ ("Description of query")|trans }}'>
+                        <small hidden class="help-block validator"></small>
+                    </div>
+                    <div style="margin-left: 5px; margin-bottom: 30px;"></div>
                 </div>
 
-
-
-                <div class='form-group'>
-                    {{ form_label(form.email) }}
-                    {{ form_widget(form.email, { 'attr' : {'class' : 'form-control', 'placeholder' : 'Your email'} }) }}
-                    <span class="text-danger">{{ form_errors(form.email) }}</span>
+                <div style="margin-left: 20px;">
+                    <button id="contact-btn" type="button" class="btn btn-success" onClick="sendData">{{ ("Send")|trans }}</button>
                 </div>
 
-                <div class='form-group'>
-                    {{ form_label(form.phone) }}
-                    {{ form_widget(form.phone, { 'attr' : {'class' : 'form-control', 'placeholder' : 'Your phone number'} }) }}
-                    <span class="text-danger">{{ form_errors(form.phone) }}</span>
-                </div>    
-
-                <div class="form-group">
-                    {{ form_label(form.affair) }}
-                    {{ form_widget(form.affair, {'attr': {'class': 'form-control', 'placeholder' : 'Affair of message'}}) }}
-                    <span class="text-danger">{{ form_errors(form.affair) }}</span>
-                </div>
-
-                <div class="form-group">
-                    {{ form_label(form.description) }}
-                    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder' : 'Description'}}) }}
-                    <span class="text-danger">{{ form_errors(form.description) }}</span>
-                </div>
-            </fieldset>
-
-            <p>
-                {{ form_widget(form.save, {'label' : 'Send', 'attr': {'class': 'btn btn-success'}}) }}
-            </p>
-
-                {{ form_end(form) }}
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+
+    <script>
+        var numberInput = document.getElementById("phone");
+
+        // Add an event listener for the input event
+        numberInput.addEventListener("input", function (event) {
+            // Prevent the default behavior of arrow keys and scroll
+            event.preventDefault();
+
+            // Get the value of the input
+            var inputValue = event.target.value;
+
+            // Do something with the input value if needed
+            console.log("Input Value:", inputValue);
+        });
+
+        document.getElementById('phone').addEventListener('keydown', function(e) {
+            if (e.keyCode === 38 || e.keyCode === 40) {
+                e.preventDefault();
+            }
+        });
+
+    </script>
+
+
 {% endblock %}

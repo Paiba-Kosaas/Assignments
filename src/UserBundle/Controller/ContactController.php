@@ -19,53 +19,27 @@ class ContactController extends Controller
      */
     public function indexAction()
     {
-        $contact = new Contact();
-        $form = $this->handlerCreateForm($contact);
-
-        return $this->render('UserBundle:Contact:index.html.twig', array('form' => $form->createView()));
+        return $this->render('UserBundle:Contact:index.html.twig');
     }
 
     /**
-     * Función manejadora del formulario a crear
-     * @author Pablo Ibañez <pablo.ibanez@eurotransportcar.com>
-     * @param Contact $entity
-     * @return $form
-     */
-    private function handlerCreateForm(Contact $entity)
-    {
-        $form = $this->createForm(new ContactType(), $entity, array(
-            'action' => $this->generateUrl('contact_create'),
-            'method' => 'POST'
-        ));
-
-        return $form;
-    }
-
-    /**
-     * Función para crear el formulario de contacto
+     * Función para generar vista inicial de contacto
      * @author Pablo Ibañez <pablo.ibanez@eurotransportcar.com>
      * @param Request $request
      * @return array $result
      */
-    public function createAction(Request $request)
-    {
-        $contact = new Contact();
-        $form = $this->handlerCreateForm($contact);
-        $form->handleRequest($request);
+    public function addContactAction(Request $request){
 
-        if($form->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contact);
-            $em->flush();
+        $data = $request->request->all();
 
-            $successMessage = $this->get('translator')->trans('The query has been created.');
-            $this->addFlash('mensaje', $successMessage);
+        $result = $contactService->create(
+            $data
+        );
 
-            return $this->redirectToRoute('contact_index'); 
-
-        }
-
-        return $this->render('UserBundle:Contact:index.html.twig', array('form' => $form->createView()));
+        return new JsonResponse(
+            $data['code'],
+            $data['data']
+        );
     }
+
 }
