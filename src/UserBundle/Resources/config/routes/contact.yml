@@ -4,7 +4,7 @@ contact_index:
 
 contact_add:
     path:     /add
-    defaults: { _controller: UserBundle:Contact:add }
+    defaults: { _controller: UserBundle:Contact:addContact }
 
 contact_create:
     path:     /create

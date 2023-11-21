@@ -51,9 +51,12 @@
                         <div class="form-inline">
                             <select name="country" id="country" class = "form-contact btn btn-default dropdown-toggle">
                                 <option value="+34">Es(+34)</option>
-                                <option value="+34">En(+34)</option>
-                                <option value="+34">Fr(+34)</option>
-                                <option value="+34">Al(+34)</option>
+                                <option value="+34">En(+44)</option>
+                                <option value="+34">Fr(+33)</option>
+                                <option value="+34">Al(+49)</option>
+                                <option value="+34">It(+39)</option>
+                                <option value="+34">Br(+55)</option>
+                                <option value="+34">Ar(+54)</option>
                             </select>
                             <input id="phone" type="number" inputmode="numeric" min="0" max="999999999" style="width:80%;"
                             onwheel="return false;" name="phone" class="form-contact form-control" placeholder='{{ ("Your phone number")|trans }}'>
@@ -86,32 +89,47 @@
     </div>
 {% endblock %}
 
-{#
-
 {% block javascripts %}
-    {{ parent()}}
-
+{{ parent() }}
     <script>
-        var numberInput = document.getElementById("phone");
+        /**
+        * @author Paiba
+        */
+        function sendForm(){
+            
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: "{{path('contact_add')}}",
+                data: getData(),
+                success: function(data) {
+                    if(data.status){
+                        Swal.fire({
+                            title: "Form Success!",
+                            text: data.message,
+                            icon: "success"
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Form error!",
+                            text: data.message,
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function(data){
+                    Swal.fire({
+                            title: "Form error!",
+                            text: "No se ha podido mandar el formulario",
+                            icon: "error"
+                        });
+                },
+                beforeSend: function(){
+                    
+                }
+            });
+        }
 
-        // Add an event listener for the input event
-        numberInput.addEventListener("input", function (event) {
-            // Prevent the default behavior of arrow keys and scroll
-            event.preventDefault();
+</script>
 
-            // Get the value of the input
-            var inputValue = event.target.value;
-
-            // Do something with the input value if needed
-            console.log("Input Value:", inputValue);
-        });
-
-        document.getElementById('phone').addEventListener('keydown', function(e) {
-            if (e.keyCode === 38 || e.keyCode === 40) {
-                e.preventDefault();
-            }
-        });
-    </script>
 {% endblock %}
-
-#}

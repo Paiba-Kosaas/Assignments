@@ -23,7 +23,7 @@ function sendData(){
         return true;
     }
 
-    send();
+    sendForm();
 }
 
 /**
@@ -31,34 +31,19 @@ function sendData(){
  * @param {*} identifier 
  * @returns
 */
-function getData(identifier){
+function getData(){
 
-    let data = [];
-    
-    $(identifier).each(function(element, index){
-        data[$(this).attr('name')] = $(this).val();
-    });
+    var data = {
+        'firstName': $('#firstName').val(),
+        'lastName': $('#lastName').val(),
+        'email': $('#email').val(),
+        'phone': $('#country').val() + $('#phone').val(),
+        'affair': $('#affair').val(),
+        'description': $('#description').val()
+    };
 
     return data;
-}
 
-/**
- * @author Paiba
- */
-function send(){
-    $.ajax({
-        src: "{{''}}",
-        data: getData('.form-contact'),
-        success: function(data) {
-            
-        },
-        error: function(data){
-        
-        },
-        beforeSend: function(){
-            alert("REALIZANDO....")
-        }
-    });
 }
 
 /**
@@ -69,14 +54,12 @@ function validateData()
     let checkRequiredVal, checkEmailVal, checkNumberVal = false;    
 
     checkRequiredVal = checkRequired();
+   
     checkEmailVal = checkEmail($("#email"));
 
-    if(checkNumber($("#phone")) != null)
-    {
-        $("#phone").val(checkNumber($("#phone")));
-        checkNumberVal = true;
-    }
-    
+    checkNumberVal = checkNumber($("#phone"));
+        
+
     return checkEmailVal === checkRequiredVal === checkNumberVal;
 }
 
@@ -139,12 +122,11 @@ function checkNumber(number)
     if(!regex.test(number.val()))
     {
         showAlert(number, 'Please correct your number', 'red');
-        return null;
+        return false;
     }
     
     showAlert(number, 'Correct', 'green');
-    number = $('#country').val() + number.val();
-    return number;
+    return true;
 }
 
 
