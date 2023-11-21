@@ -50,10 +50,10 @@
                         <label class="control-label">{{ ("Your phone number")|trans }}</label>
                         <div class="form-inline">
                             <select name="country" id="country" class = "form-contact btn btn-default dropdown-toggle">
-                                <option value="34">Es(+34)</option>
-                                <option value="34">En(+34)</option>
-                                <option value="34">Fr(+34)</option>
-                                <option value="34">Al(+34)</option>
+                                <option value="+34">Es(+34)</option>
+                                <option value="+34">En(+34)</option>
+                                <option value="+34">Fr(+34)</option>
+                                <option value="+34">Al(+34)</option>
                             </select>
                             <input id="phone" type="number" inputmode="numeric" min="0" max="999999999" style="width:80%;"
                             onwheel="return false;" name="phone" class="form-contact form-control" placeholder='{{ ("Your phone number")|trans }}'>
@@ -78,13 +78,15 @@
                 </div>
 
                 <div style="margin-left: 20px;">
-                    <button id="contact-btn" type="button" class="btn btn-success" onClick="sendData">{{ ("Send")|trans }}</button>
+                    <button id="contact-btn" type="button" class="btn btn-success" onClick='sendData()'>{{ ("Send")|trans }}</button>
                 </div>
 
             </div>
         </div>
     </div>
 {% endblock %}
+
+{#
 
 {% block javascripts %}
     {{ parent()}}
@@ -109,8 +111,7 @@
                 e.preventDefault();
             }
         });
-
     </script>
-
-
 {% endblock %}
+
+#}

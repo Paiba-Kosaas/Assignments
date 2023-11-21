@@ -66,16 +66,18 @@ function send(){
  */
 function validateData()
 {
-    let checkRequired, checkEmail, checkNumber = false;
+    let checkRequiredVal, checkEmailVal, checkNumberVal = false;    
 
-    checkRequired= checkRequired();
+    checkRequiredVal = checkRequired();
+    checkEmailVal = checkEmail($("#email"));
 
-    checkEmail= checkEmail($("#email"));
-
-    checkNumber= checkNumber($("#phone").val());
+    if(checkNumber($("#phone")) != null)
+    {
+        $("#phone").val(checkNumber($("#phone")));
+        checkNumberVal = true;
+    }
     
-
-    return checkEmail === checkRequired === checkNumber;
+    return checkEmailVal === checkRequiredVal === checkNumberVal;
 }
 
 /**
@@ -83,14 +85,17 @@ function validateData()
  */
 function checkRequired()
 {
+    let result = true;
     $(".required-field").each(function() {
+        
         if( $(this).val().trim() == "" ) {
             if( $(this).is("select") ) {
                 showAlert($(this), 'You must select an option', 'red');
+                result = false;
             } else {
                 showAlert($(this), 'This field can not be blank', 'red');
+                result = false;
             }
-            auxResult = false;
         } else {
             if( $(this).is("select") ) {
                 showAlert($(this), 'Correct', 'green');
@@ -99,6 +104,8 @@ function checkRequired()
             }
         }
     });
+
+    return result;
 }
 
 /**
@@ -111,15 +118,14 @@ function checkEmail(email)
     let re = /\S+@\S+\.\S+/;
     let result = re.test(email.val());
 
-    if(result)
+    if(!result)
     {
-        showAlert(email, 'Please correct this field', 'red');
-    }
-    else{
-        showAlert(email, 'Correct', 'green');
+        showAlert(email, 'Please correct your email', 'red');
+        return false;
     }
 
-    return result;
+    showAlert(email, 'Correct', 'green');
+    return true;
 }
 
 /**
@@ -130,14 +136,43 @@ function checkEmail(email)
 function checkNumber(number)
 {
     let regex = /^[0-9-()+]{3,20}/;
-    if(!regex.test(number))
+    if(!regex.test(number.val()))
     {
-        showAlert($(this), 'Please correct this field', 'red');
+        showAlert(number, 'Please correct your number', 'red');
+        return null;
     }
-    else{showAlert($(this), 'Correct', 'green');}
+    
+    showAlert(number, 'Correct', 'green');
+    number = $('#country').val() + number.val();
+    return number;
 }
 
 
+/**
+ * CUANDO INICIE LO PRIMERO QUE HARÁ ES ESTABLECER QUE EL INPUT DE PHONE
+    SOLO PUEDA RECIBIR NUMEROS, Y QUITARA FUNCIONES ADICIONALES DE SCROLL Y FLECHAS
+ * @author Paiba <pablo.ibanez@eurotransportcar.com>
+ */
+
+var numberInput = document.getElementById("phone");
+
+        // Add an event listener for the input event
+        numberInput.addEventListener("input", function (event) {
+            // Prevent the default behavior of arrow keys and scroll
+            event.preventDefault();
+
+            // Get the value of the input
+            var inputValue = event.target.value;
+
+            // Do something with the input value if needed
+            console.log("Input Value:", inputValue);
+        });
+
+        document.getElementById('phone').addEventListener('keydown', function(e) {
+            if (e.keyCode === 38 || e.keyCode === 40) {
+                e.preventDefault();
+            }
+        });
 
 
 
